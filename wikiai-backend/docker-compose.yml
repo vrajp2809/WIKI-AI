@@ -1,0 +1,46 @@
+services:
+  api:
+    build: .
+    container_name: wikiai-api
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env
+    environment:
+      REDIS_URL: redis://redis:6379
+    depends_on:
+      mongodb:
+        condition: service_healthy
+      redis:
+        condition: service_started
+    volumes:
+      - ./logs:/app/logs
+    restart: unless-stopped
+
+  mongodb:
+    image: mongo:7
+    container_name: wikiai-mongodb
+    environment:
+      MONGO_INITDB_DATABASE: wikiai_db
+    volumes:
+      - mongodata:/data/db
+    ports:
+      - "27017:27017"
+    healthcheck:
+      test: ["CMD-SHELL", "mongosh --quiet --eval 'db.runCommand({ ping: 1 }).ok'"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    container_name: wikiai-redis
+    volumes:
+      - redisdata:/var/lib/redis/data
+    ports:
+      - "6380:6379"
+    restart: unless-stopped
+
+volumes:
+  mongodata:
+  redisdata:
