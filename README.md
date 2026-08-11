@@ -3,7 +3,6 @@
 WikiAI is a full-stack learning platform that redesigns Wikipedia into an adaptive study experience. It combines persona-based explanations, AI chat, quiz generation, bookmarks, notes, analytics, and YouTube learning recommendations on top of Wikipedia content.
 
 ## What This Project Does
-
 - Searches Wikipedia topics and opens topic pages with summaries and original content.
 - Adapts explanations for different learner personas such as school student, college student, professor researcher, and casual learner.
 - Provides AI-assisted topic summaries, simplified explanations, and context-aware chat.
